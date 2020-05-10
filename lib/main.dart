@@ -23,12 +23,39 @@ class MyHomePage extends StatefulWidget{
 
 class MyHomePageState extends State<MyHomePage>{
   int totalFee = 0;
+  var rateList = [1.0, 1.0];
+  var numberList = [0, 0];
+  var feePerPersonList = [0,0];
 
   void onChangedTatalFee(String value){
     setState(() {
       totalFee = int.parse(value);
+      calucurateFeePerPerson();
     });
+  }
 
+  void onChangedRate(String value, int index){
+    setState(() {
+      rateList[index] = double.parse(value);
+      calucurateFeePerPerson();
+    });
+  }
+  void onChangedNumber(String value, int index){
+    setState(() {
+      numberList[index] = int.parse(value);
+      calucurateFeePerPerson();
+    });
+  }
+  void calucurateFeePerPerson(){
+    double totalNumber = 0.0;
+    for (int i=0;i < rateList.length; i++){
+      totalNumber += numberList[i] * rateList[i];
+    }
+
+    double feePerPerson = totalFee / totalNumber;
+    for(int i=0;i<rateList.length;i++){
+      feePerPersonList[i] = (feePerPerson * rateList[i]).ceil();
+    }
   }
 
   @override 
@@ -59,11 +86,19 @@ class MyHomePageState extends State<MyHomePage>{
               Row(children: <Widget>[
                 Text("傾斜比率"),
                 Flexible(child:
-                  TextField(keyboardType: TextInputType.number),
+                  TextField(
+                    onChanged: (value){
+                      onChangedRate(value, 0);
+                    },
+                    keyboardType: TextInputType.number),
                 ),
                 Text("倍"),
                 Flexible(child:
-                  TextField(keyboardType: TextInputType.number),
+                  TextField(
+                    onChanged: (value){
+                      onChangedNumber(value, 0);
+                    },
+                    keyboardType: TextInputType.number),
                 ),
                 Text("人")
               ],),
@@ -74,11 +109,19 @@ class MyHomePageState extends State<MyHomePage>{
                 Row(children: <Widget>[
                   Text("傾斜比率"),
                   Flexible(child:
-                    TextField(keyboardType: TextInputType.number),
+                    TextField(
+                      onChanged: (value){
+                        onChangedRate(value, 1);
+                      },
+                      keyboardType: TextInputType.number),
                   ),
                   Text("倍"),
                   Flexible(child:
-                    TextField(keyboardType: TextInputType.number),
+                    TextField(
+                      onChanged: (value){
+                        onChangedNumber(value, 1);
+                      },
+                      keyboardType: TextInputType.number),
                   ),
                   Text("人")
                 ],),
@@ -91,9 +134,8 @@ class MyHomePageState extends State<MyHomePage>{
                 child:
                 Column(children: <Widget>[
                   Text("支払い金額"),
-                  Text('合計金額$totalFee円'),
-                  Text("○倍の人 ○円"),
-                  Text("○倍の人 ○円"),
+                  Text("${rateList[0]}倍の人 ${feePerPersonList[0]}"),
+                  Text("${rateList[1]}倍の人 ${feePerPersonList[1]}円"),
                 ],)
               ),
           ),
