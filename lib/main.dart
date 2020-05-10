@@ -22,6 +22,15 @@ class MyHomePage extends StatefulWidget{
 }
 
 class MyHomePageState extends State<MyHomePage>{
+  int totalFee = 0;
+
+  void onChangedTatalFee(String value){
+    setState(() {
+      totalFee = int.parse(value);
+    });
+
+  }
+
   @override 
   Widget build(BuildContext context){
     return Scaffold(
@@ -36,7 +45,9 @@ class MyHomePageState extends State<MyHomePage>{
               Row(children: <Widget>[
                 Text("合計金額"),
                 Flexible(child:
-                  TextField(keyboardType: TextInputType.number),
+                  TextField(
+                    onChanged: onChangedTatalFee,
+                    keyboardType: TextInputType.number),
                 ),
                 Text("円"),
               ],),
@@ -80,6 +91,7 @@ class MyHomePageState extends State<MyHomePage>{
                 child:
                 Column(children: <Widget>[
                   Text("支払い金額"),
+                  Text('合計金額$totalFee円'),
                   Text("○倍の人 ○円"),
                   Text("○倍の人 ○円"),
                 ],)
