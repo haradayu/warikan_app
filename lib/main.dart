@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,8 +20,67 @@ class MyHomePage extends StatelessWidget{
   @override 
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(),
-      body: Text("Hello"),
+      appBar: AppBar(title: Text("傾斜つき割り勘計算"),),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 32.0, horizontal: 64.0),
+            child:
+              Row(children: <Widget>[
+                Text("合計金額"),
+                Flexible(child:
+                  TextField(keyboardType: TextInputType.number),
+                ),
+                Text("円"),
+              ],),
+          ),
+          Column(children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 64.0),
+              child:
+              Row(children: <Widget>[
+                Text("傾斜比率"),
+                Flexible(child:
+                  TextField(keyboardType: TextInputType.number),
+                ),
+                Text("倍"),
+                Flexible(child:
+                  TextField(keyboardType: TextInputType.number),
+                ),
+                Text("人")
+              ],),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 64.0),
+              child:
+                Row(children: <Widget>[
+                  Text("傾斜比率"),
+                  Flexible(child:
+                    TextField(keyboardType: TextInputType.number),
+                  ),
+                  Text("倍"),
+                  Flexible(child:
+                    TextField(keyboardType: TextInputType.number),
+                  ),
+                  Text("人")
+                ],),
+            ),
+          ],),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+            child:
+              Center(
+                child:
+                Column(children: <Widget>[
+                  Text("支払い金額"),
+                  Text("○倍の人 ○円"),
+                  Text("○倍の人 ○円"),
+                ],)
+              ),
+          ),
+        ],)
     );
   }
 }
